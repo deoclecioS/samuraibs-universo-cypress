@@ -1,7 +1,14 @@
 {
     "baseUrl": "http://localhost:3000",
     "chromeWebSecurity": false,
-	"watchForFileChanges": false,
+    "watchForFileChanges": false,
     "viewportWidth": 1440,
-    "viewportHeight": 900
+    "viewportHeight": 900,
+    "dbConfig": {
+        "host": "salt.db.elephantsql.com",
+        "user": "xwamxstt",
+        "password": "SGZZuZ-MALhMXuD0fvFbii9gJXDhEQC3",
+        "database": "xwamxstt",
+        "port": 5432
+    }
 }
