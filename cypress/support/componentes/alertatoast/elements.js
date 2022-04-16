@@ -1,0 +1,4 @@
+exports.localizador = {
+
+    alertaToast: '.toast'
+}
