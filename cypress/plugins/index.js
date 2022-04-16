@@ -23,7 +23,7 @@ module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 
-const configJason = require(config.configFile)
+  const configJason = require(config.configFile)
 
   const pool = new Pool(configJason.dbConfig)
 
@@ -35,7 +35,7 @@ const configJason = require(config.configFile)
           if (error) {
             throw error
           }
-          resolve({succes: result})
+          resolve({ succes: result })
         })
       })
     }
