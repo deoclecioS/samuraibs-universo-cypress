@@ -1,5 +1,5 @@
 
-import { localizador } from "./elements";
+import { localizador } from "./elements"
 
 class loginPage {
 
@@ -12,7 +12,7 @@ class loginPage {
         cy.get(localizador.senha).type(user.password)
     }
 
-    clicaRealizaLogin() {
+    clicarEntrar() {
         cy.contains(localizador.botaoacessar).click();
     }
 }

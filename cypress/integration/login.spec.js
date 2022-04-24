@@ -1,5 +1,6 @@
 /// <reference types="cypress"/> 
 
+import dashboardPage from "../support/pages/dashboard";
 import loginPage from "../support/pages/login"
 
 
@@ -10,6 +11,7 @@ describe('pagina de login', () => {
     context('quando o usuário é valido', () => {
 
         const user = {
+            name: "Juvencio",
             email: "juvencio@samuraibs.com.br",
             password: "123456"
         }
@@ -17,9 +19,9 @@ describe('pagina de login', () => {
 
             loginPage.acessarHomepage()
             loginPage.preencherCampos(user)
-           
+            loginPage.clicarEntrar()
 
-            loginPage.clicaRealizaLogin()
+            dashboardPage.header.verificaUsuarioAutenticado(user.name)
 
         });
     });
