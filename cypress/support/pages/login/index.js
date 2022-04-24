@@ -12,7 +12,7 @@ class loginPage {
         cy.get(localizador.senha).type(user.password)
     }
 
-    clicaAcessar() {
+    clicaRealizaLogin() {
         cy.contains(localizador.botaoacessar).click();
     }
 }

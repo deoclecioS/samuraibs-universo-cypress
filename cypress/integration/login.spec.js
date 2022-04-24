@@ -19,7 +19,7 @@ describe('pagina de login', () => {
             loginPage.preencherCampos(user)
            
 
-            loginPage.clicaAcessar()
+            loginPage.clicaRealizaLogin()
 
         });
     });
