@@ -3,7 +3,7 @@
 exports.localizador = {
 
     email: 'input[placeholder$="mail"]',
-    senha: 'input[placeholder="Senha"]',
-    botaoacessar:('button[type="submit"]' , 'Entrar')
-    
+    senha: 'input[placeholder="Sua senha secreta"]',
+    botaoacessar:('button[type="submit"]' , 'Entrar'),
+    alertaemailInvalido: '.alert-error'
 }

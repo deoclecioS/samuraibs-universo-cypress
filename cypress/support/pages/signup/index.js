@@ -28,9 +28,8 @@ class SignupPage {
     }
 
     mensagemalerta(mensagemesperada){
-        cy.contains(localizador.alerta , mensagemesperada).should('be.visible')
+        cy.get(localizador.alerta , mensagemesperada).should('be.visible')
     }
-
 }
 
 export default new SignupPage()
