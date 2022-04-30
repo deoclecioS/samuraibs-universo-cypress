@@ -1,0 +1,23 @@
+{
+  "sucess": {
+    "name": "Juvenal Silva",
+    "email": "juvenal@silva.com.br",
+    "password": "123456"
+  },
+  "email_duplicado": {
+    "email": "rita@anselmo.com",
+    "is_provider": true,
+    "name": "Rita Anselmo",
+    "password": "123456"
+  },
+  "email_incorreto": {
+    "email": "manuelaanselmo.com",
+    "name": "manuel anselmo",
+    "password": "123456"
+  },
+  "senha_curta": {
+    "name": "manuel anselmo",
+    "email": "manuela@anselmo.com.br",
+    "password": null
+  }
+}

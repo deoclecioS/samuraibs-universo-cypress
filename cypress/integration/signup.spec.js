@@ -2,26 +2,29 @@
 
 import signuPage from "../support/pages/signup";
 
-describe('Cadastro na plataforma', () => {
+describe('Cadastro na plataforma barbeiro de sevilha', () => {
 
+    before(function () {
+        cy.fixture('signup').then(function (signup) {
 
-    context('que o usuário é um novo cadastro', () => {
+            this.sucess = signup.sucess
+            this.email_duplicado = signup.email_duplicado
+            this.email_incorreto = signup.email_incorreto
+            this.senha_curta = signup.senha_curta
+        })
+    });
 
-        const user = {
-            name: 'Juvenal Silva',
-            email: 'juvenal@silva.com.br',
-            password: '123456'
-        }
+    context('que o usuário é um novo cadastro', function () {
 
-        before(() => {
-            cy.task('removeUser', user.email).then(function (result) {
+        before(function () {
+            cy.task('removeUser', this.sucess.email).then(function (result) {
                 console.log(result)
             })
         });
-        it('Realiza um cadastro de usuário novo', () => {
+        it('Realiza um cadastro de usuário novo', function () {
 
             signuPage.acessarpagina()
-            signuPage.preencheformulario(user)
+            signuPage.preencheformulario(this.sucess)
             signuPage.clicaremcadastrar()
             signuPage.alertatoast.validamensagemtoastAlerta('Agora você se tornou um(a) Samurai, faça seu login para ver seus agendamentos!')
         });
@@ -33,21 +36,15 @@ describe('Cadastro na plataforma', () => {
         //delete from public.users where email = 'juvenal@silva.com.br'
     });
 
-    context('que um usuário já possui cadastro', () => {
-        const user = {
-            email: "rita@anselmo.com",
-            is_provider: true,
-            name: "Rita Anselmo",
-            password: "123456"
-        }
+    context('que um usuário já possui cadastro', function () {
 
-        before(() => {
-            cy.postUser(user)
+        before(function () {
+            cy.postUser(this.email_duplicado)
         });
 
-        it('Não deverá realizar um cadastro de usuário novo', () => {
+        it('Não deverá realizar um cadastro de usuário novo', function () {
             signuPage.acessarpagina()
-            signuPage.preencheformulario(user)
+            signuPage.preencheformulario(this.email_duplicado)
             signuPage.clicaremcadastrar()
             signuPage.alertatoast.validamensagemtoastAlerta('Email já cadastrado para outro usuário.')
         });
@@ -57,44 +54,36 @@ describe('Cadastro na plataforma', () => {
         //delete from public.users where email = 'juvenal@silva.com.br'
     });
 
-    context('quando o email é incorreto', () => {
+    context('quando o email é incorreto', function () {
 
-        const user = {
-            email: "manuelaanselmo.com",
-            name: "manuel anselmo",
-            password: "123456"
-        }
-        it('deve exibir alerta para email inválido', () => {
+        it('deve exibir alerta para email inválido', function () {
             signuPage.acessarpagina()
-            signuPage.preencheformulario(user)
+            signuPage.preencheformulario(this.email_incorreto)
             signuPage.clicaremcadastrar()
-            signuPage.mensagemalerta('Informe um email válido')
+            signuPage.alerta.possuitexto('Informe um email válido')
         });
     });
 
-    context('quando senha não possuir 6 caracteres', () => {
+    context('quando senha não possuir no minímo 6 caracteres', function () {
 
-        const senhas = ['1', '1a', '1ab']
+        const passwords = ['1', '1a', '1ab', '1abc', '1abcd']
 
-        beforeEach(function () {
+        before(() => {
             signuPage.acessarpagina()
-        })
-
-        senhas.forEach(senha => {
-            it('Deve emitir alerta de senha invalida para: ' + senha, () => {
-
-                const user = {
-                    email: "manuela@anselmo.com.br",
-                    name: "manuel anselmo",
-                    password: senha
-                }
-                signuPage.preencheformulario(user)
-                signuPage.clicaremcadastrar()
-            });
         });
 
+        passwords.forEach(function (senha) {
+            it('Deve emitir alerta de senha invalida para: ' + senha, function () {
+
+                this.senha_curta.password = senha
+
+                signuPage.preencheformulario(this.senha_curta)
+                signuPage.clicaremcadastrar()
+            })
+        })
+
         afterEach(function () {
-            signuPage.mensagemalerta('Pelo menos 6 caracteres')
+            signuPage.alerta.possuitexto('Pelo menos 6 caracteres')
         })
     });
 
@@ -113,9 +102,9 @@ describe('Cadastro na plataforma', () => {
         })
 
         mensagensalerta.forEach(function (msgalert) {
-            it('Deve emitir ' + msgalert.toLowerCase(), function() {
+            it('Deve emitir ' + msgalert.toLowerCase(), function () {
 
-                signuPage.mensagemalerta(msgalert)
+                signuPage.alerta.possuitexto(msgalert)
             });
 
         })

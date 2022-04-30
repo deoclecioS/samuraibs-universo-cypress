@@ -55,7 +55,7 @@ describe('pagina de login', () => {
         });
     });
 
-    context.only('Quando email é inválido', () => {
+    context('Quando email é inválido', () => {
 
         const emails = [
             'email.com.br',
@@ -78,7 +78,29 @@ describe('pagina de login', () => {
 
                 loginPage.preencherCampos(user)
                 loginPage.clicarEntrar()
-                loginPage.alertaemailinvalido('Informe um email válido')
+                loginPage.alert.possuitexto('Informe um email válido')
+            });
+        })
+    });
+
+
+    context('campos obrigatórios não preenchidos', () => {
+
+
+        const mensagensalerta = [
+            'E-mail é obrigatório',
+            'Senha é obrigatória'
+        ]
+
+        before(function () {
+            loginPage.acessarHomepage()
+            loginPage.clicarEntrar()
+        })
+
+        mensagensalerta.forEach(function (msgalert) {
+            it('Deve emitir ' + msgalert.toLowerCase(), function() {
+
+                loginPage.alert.possuitexto(msgalert)
             });
         })
     });

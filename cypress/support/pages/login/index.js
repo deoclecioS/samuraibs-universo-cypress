@@ -1,11 +1,13 @@
 
 import { localizador } from "./elements"
 import toast from "../../componentes/alertatoast"
+import alert from "../../componentes/alertacampos"
 
 class loginPage {
 
     constructor() {
         this.toast = toast
+        this.alert = alert
     }
 
 
@@ -27,9 +29,6 @@ class loginPage {
         cy.contains(localizador.botaoacessar).click();
     }
 
-    alertaemailinvalido(textoalertaemail) {
-        cy.contains(localizador.alertaemailInvalido, textoalertaemail).should('be.visible')
-    }
 }
 
 export default new loginPage()

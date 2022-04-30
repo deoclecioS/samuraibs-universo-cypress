@@ -3,13 +3,14 @@
 import { localizador } from './elements'
 
 import alertatoast from '../../componentes/alertatoast/'
+import alerta from '../../componentes/alertacampos'
 
 class SignupPage {
 
     constructor() {
 
-        this.alertatoast = alertatoast;
-
+        this.alertatoast = alertatoast
+        this.alerta = alerta
     }
 
     acessarpagina() {
@@ -17,18 +18,20 @@ class SignupPage {
     }
 
     preencheformulario(user) {
-        cy.get(localizador.name).type(user.name)
-        cy.get(localizador.email).type(user.email)
-        cy.get(localizador.password).type(user.password)
+        cy.get(localizador.name)
+            .clear()
+            .type(user.name)
+        cy.get(localizador.email)
+            .clear()
+            .type(user.email)
+        cy.get(localizador.password)
+            .clear()
+            .type(user.password)
     }
 
     clicaremcadastrar() {
 
         cy.contains(localizador.botaoCadastrar).click()
-    }
-
-    mensagemalerta(mensagemesperada){
-        cy.get(localizador.alerta , mensagemesperada).should('be.visible')
     }
 }
 
