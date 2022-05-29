@@ -24,6 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+import moment from 'moment'
+
 Cypress.Commands.add('postUser', function (user) {
 
     cy.task('removeUser', user.email)
@@ -56,4 +58,77 @@ Cypress.Commands.add('recuperaPass', function (email) {
             })
     })
 
+})
+
+Cypress.Commands.add('criarApontamento', function (hora) {
+
+    let datacorrente = new Date()
+    datacorrente.setDate(datacorrente.getDate() + 1)
+
+    Cypress.env('agendamentoDia', datacorrente.getDate())
+
+    const diaAgenda = moment(datacorrente).format('YYYY-MM-DD ' + hora + ':00')
+
+
+    const payload = {
+        provider_id: Cypress.env('providerId'),
+        date: diaAgenda
+    }
+
+    cy.request({
+        method: 'POST',
+        url: 'http://localhost:3333/appointments',
+        body: payload,
+        headers: {
+            authorization: 'Bearer ' + Cypress.env('apiToken')
+        }
+
+    }).then(function (response) {
+        expect(response.status).to.eq(200)
+
+    })
+})
+
+Cypress.Commands.add('setProviderId', function (providerEmail) {
+
+
+    cy.request({
+        method: 'GET',
+        url: 'http://localhost:3333/providers',
+        headers: {
+            authorization: 'Bearer ' + Cypress.env('apiToken')
+        }
+    }).then(function (response) {
+        expect(response.status).to.eq(200)
+        cy.log(response.body)
+
+        const providerlist = response.body
+
+
+        providerlist.forEach(function (provider) {
+            if (provider.email === providerEmail) {
+
+                Cypress.env('providerId', provider.id)
+            }
+
+        })
+    })
+})
+
+Cypress.Commands.add('apiLogin', function (user) {
+
+    const payload = {
+        email: user.email,
+        password: user.password
+    }
+
+    cy.request({
+        method: 'POST',
+        url: 'http://localhost:3333/sessions',
+        body: payload
+
+    }).then(function (response) {
+        expect(response.status).to.eq(200)
+        Cypress.env('apiToken', response.body.token)
+    })
 })

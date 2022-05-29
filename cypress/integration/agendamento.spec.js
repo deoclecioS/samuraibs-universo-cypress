@@ -1,55 +1,49 @@
 /// <reference types="cypress"/>
 
-describe('Agendamentos', function () {
 
+import loginPage from '../support/pages/login'
+import dashboardPage from '../support/pages/dashboard'
+
+describe('Agendamentos', function () {
 
     context('Quando é realizado o agendamento no app mobile', function () {
 
         const data = {
+            provider: {
+                name: 'Edward Tesoura',
+                email: 'edward@maosdetesoura.com',
+                password: 'senha123',
+                is_provider: true
+            },
             cliente: {
                 name: 'Seu Barriga',
                 email: 'barriga@televisa.com',
                 password: 'pwd1234',
                 is_provider: false
             },
-            barbersamurai: {
-                name: 'Edward Tesoura',
-                email: 'edward@maosdetesousa.com',
-                password: 'senha123',
-                is_provider: true
-            }
+            horadoagendamento: '14:00'
         }
 
         before(function () {
+            cy.postUser(data.provider)
             cy.postUser(data.cliente)
-            cy.postUser(data.barbersamurai)
 
             cy.apiLogin(data.cliente)
-            cy.log('Conseguimos o Token ' + Cypress.env('apiToken'))
+            cy.setProviderId(data.provider.email)
+            cy.criarApontamento(data.horadoagendamento)
         })
         it('Deverá ser apresentado no dashboard de agendamentos', function () {
-            console.log(data)
 
+            loginPage.acessarHomepage()
+            loginPage.preencherCampos(data.provider)
+            loginPage.clicarEntrar()
 
-        });
-    });
+            dashboardPage.calendarioVisivel()
 
-});
-
-Cypress.Commands.add('apiLogin', function (user) {
-
-    const payload = {
-        email: user.email,
-        password: user.password
-    }
-
-    cy.request({
-        method: 'POST',
-        url: 'http://localhost:3333/sessions',
-        body: payload
-
-    }).then(function(response){
-        expect(response.status).to.eq(200)
-        Cypress.env('apiToken', response.body.token)
+            const dia = Cypress.env('agendamentoDia')
+            dashboardPage.selecionaDia(dia)
+            dashboardPage.agendamentoVisivel(data.cliente, data.horadoagendamento)
+        })
     })
+
 })
