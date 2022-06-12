@@ -147,7 +147,7 @@ Cypress.Commands.add('apiLogin', function (user, setLocalStorage = false) {
             window.localStorage.setItem('@Samurai:user', JSON.stringify(user))
         }
     })
-    if(setLocalStorage){
+    if (setLocalStorage) {
         cy.visit('/dashboard')
     }
 })
