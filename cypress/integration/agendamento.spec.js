@@ -1,7 +1,6 @@
 /// <reference types="cypress"/>
 
 
-import loginPage from '../support/pages/login'
 import dashboardPage from '../support/pages/dashboard'
 
 import { provider, cliente, horadoagendamento } from '../support/factories/agenda'
@@ -9,7 +8,6 @@ import { provider, cliente, horadoagendamento } from '../support/factories/agend
 describe('Agendamentos', function () {
 
     context('Quando é realizado o agendamento no app mobile', function () {
-
 
         before(function () {
             cy.postUser(provider)
@@ -21,16 +19,16 @@ describe('Agendamentos', function () {
         })
         it('Deverá ser apresentado no dashboard de agendamentos', function () {
 
-            loginPage.acessarHomepage()
-            loginPage.preencherCampos(provider)
-            loginPage.clicarEntrar()
+            const dia = Cypress.env('agendamentoDia')
+
+            //cy.uiLogin(provider) 
+            // comando abaixo tem ligação com o comando customizado apiLogin true/false
+            cy.apiLogin(provider, true)
 
             dashboardPage.calendarioVisivel()
-
-            const dia = Cypress.env('agendamentoDia')
             dashboardPage.selecionaDia(dia)
             dashboardPage.agendamentoVisivel(cliente, horadoagendamento.hora)
+
         })
     })
-
 })
