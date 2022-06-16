@@ -19,14 +19,14 @@ describe('Agendamentos', function () {
         })
         it('Deverá ser apresentado no dashboard de agendamentos', function () {
 
-            const dia = Cypress.env('agendamentoDia')
+            const data = Cypress.env('agendamentoDia')
 
             //cy.uiLogin(provider) 
             // comando abaixo tem ligação com o comando customizado apiLogin true/false
             cy.apiLogin(provider, true)
 
             dashboardPage.calendarioVisivel()
-            dashboardPage.selecionaDia(dia)
+            dashboardPage.selecionaDia(data)
             dashboardPage.agendamentoVisivel(cliente, horadoagendamento.hora)
 
         })

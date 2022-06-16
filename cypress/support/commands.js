@@ -77,7 +77,7 @@ Cypress.Commands.add('criarApontamento', function (hora) {
     let datacorrente = new Date()
     datacorrente.setDate(datacorrente.getDate() + 1)
 
-    Cypress.env('agendamentoDia', datacorrente.getDate())
+    Cypress.env('agendamentoDia', datacorrente)
 
     const diaAgenda = moment(datacorrente).format(`YYYY-MM-DD ${hora}:00`)
 
