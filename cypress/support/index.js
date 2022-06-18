@@ -21,7 +21,6 @@ import './commands'
 
 
 // tira screenshot de cada teste - não necessario
-//afterEach(function() {
-//    cy.wait(1000)
-//    cy.screenshot()
-//})
+afterEach(function() {
+    cy.screenshot()
+})
