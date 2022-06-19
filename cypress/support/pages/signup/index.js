@@ -15,6 +15,9 @@ class SignupPage {
 
     acessarpagina() {
         cy.visit('/signup')
+
+        cy.contains(localizador.titulo)
+        .should('be.visible')
     }
 
     preencheformulario(user) {

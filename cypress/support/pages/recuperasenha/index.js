@@ -13,6 +13,10 @@ class recuperasenhaPage {
     visitapagina(token) {
 
         cy.visit('/reset-password?token=' + token)
+
+        cy.contains(localizador.titulo)
+        .should('be.visible')
+
     }
 
     formsenhas(novasenha, confirmanovasenha) {

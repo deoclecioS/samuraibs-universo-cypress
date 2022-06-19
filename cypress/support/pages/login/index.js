@@ -13,13 +13,16 @@ class loginPage {
 
     acessarHomepage() {
         cy.visit('/')
+
+        cy.contains(localizador.titulo)
+            .should('be.visible')
     }
 
     preencherCampos(user) {
         cy.get(localizador.email)
             .clear()
             .type(user.email)
-            
+
         cy.get(localizador.senha)
             .clear()
             .type(user.password)

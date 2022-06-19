@@ -5,13 +5,16 @@ import alertatoast from '../../componentes/alertatoast'
 
 class esqueciSenha {
 
-    constructor(){
+    constructor() {
         this.alertatoast = alertatoast
     }
 
     visitarpagina() {
 
         cy.visit('/forgot-password')
+
+        cy.contains(localizador.titulo)
+            .should('be.visible')
     }
 
     formularioemail(email) {
@@ -20,7 +23,7 @@ class esqueciSenha {
             .type(email)
     }
 
-    clicarecupera(){
+    clicarecupera() {
 
         cy.get(localizador.botaorecuperar).click()
     }
