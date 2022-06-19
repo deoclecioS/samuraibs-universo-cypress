@@ -1,8 +1,9 @@
 {
-    "baseUrl": "http://localhost:3000",
-    "apiServer": "http://localhost:3333",
+    "baseUrl": "https://samuraibs-web-sousa.herokuapp.com",
+    "apiServer": "https://samuraibs-api-sousa.herokuapp.com",
     "chromeWebSecurity": false,
     "watchForFileChanges": false,
+    "defaultCommandTimeout": 30000,
     "viewportWidth": 1440,
     "viewportHeight": 900,
     "dbConfig": {

@@ -4,7 +4,7 @@ import { localizador } from "./elements"
 class Header {
 
     verificaUsuarioAutenticado(username) {
-        cy.get(localizador.localnomeUsuario, { timeout: 10000 })
+        cy.get(localizador.localnomeUsuario)
             .should('be.visible')
             .should('have.text', username)
     }
