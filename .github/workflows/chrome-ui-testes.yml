@@ -31,12 +31,6 @@ jobs:
           # Site's url
           site: https://samuraibs-api-sousa.herokuapp.com     
 
-      - name: Download the build folders
-        uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: build
-
       - name: 'UI Tests - Chrome'
         uses: cypress-io/github-action@v4
         with:
